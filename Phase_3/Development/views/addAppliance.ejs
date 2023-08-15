@@ -1,0 +1,203 @@
+<!-- For add appliance page  -->
+<%- include("partials/header") -%>
+
+<!-- add appliance -->
+<section id="addAppliance">
+
+  <div class="container-fluid text-center">
+
+    <div class="row">
+      <p class="mainMenu-text"> Welcome to Add Appliance Page</p>
+    </div>
+
+    <% if (errors != null) { %>
+      <div class="alert alert-danger">
+        <% if (errors.manufacturer) { %>
+          <p><%= errors.manufacturer %></p>
+        <% } %>
+        <% if (errors.btuRating) { %>
+          <p><%= errors.btuRating %></p>
+        <% } %>
+        <% if (errors.energySourceWH) { %>
+          <p><%= errors.energySourceWH %></p>
+        <% } %>
+        <% if (errors.capacityWH) { %>
+          <p><%= errors.capacityWH %></p>
+        <% } %>
+        <% if (errors.temperatureSettingWH) { %>
+          <p><%= errors.temperatureSettingWH %></p>
+        <% } %>
+          <% if (errors.coolingMethod) { %>
+            <p><%= errors.coolingMethod %></p>
+          <% } %>
+        <% if (errors.eer) { %>
+          <p><%= errors.eer %></p>
+        <% } %>
+        <% if (errors.energySourceH) { %>
+          <p><%= errors.energySourceH %></p>
+        <% } %>
+        <% if (errors.seer) { %>
+          <p><%= errors.seer %></p>
+        <% } %>
+        <% if (errors.hspf) { %>
+          <p><%= errors.hspf %></p>
+        <% } %>
+      </div>
+    <% } %>
+    <form action = "/addAppliance", method="post">
+
+      <div class="row mb-3">
+        <label for="applianceType" class="col-sm-2 col-form-label">Appliance Type</label>
+        <div class="col-sm-10">
+          <select class="form-select" id="applianceType" name = "applianceType" onchange="updateAttributes()">
+            <option value="" selected disabled>-- Please select appliance type --</option>
+            <option value="airHandler">Air Handler</option>
+            <option value="waterHeater">Water Heater</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <label for="manufacturer" class="col-sm-2 col-form-label">Manufacturer</label>
+        <div class="col-sm-10">
+           <select class="form-select" id="manufacturer" name="manufacturer">
+               <option value="">-- Please select a manufacturer --</option>
+               <% if (manufacturers.length > 0) { %>
+                   <% manufacturers.forEach(function(manufacturer) { %>
+                       <option value="<%= manufacturer.manufacturer_name %>"><%= manufacturer.manufacturer_name %></option>
+                   <% }); %>
+               <% } else { %>
+                   <option value="">No manufacturers found</option>
+               <% } %>
+           </select>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="modelName" class="col-sm-2 col-form-label">Model Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="modelName" name="modelName">
+        </div>
+      </div>
+      <!-- BTU Rating -->
+      <div class="row mb-3">
+        <label for="btuRating" class="col-sm-2 col-form-label">BTU Rating</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" id="btuRating" name="btuRating" placeholder="Enter BTU rating" >
+        </div>
+      </div>
+
+      <!-- Air handler -->
+      <div id="airHandlerAttributes" style="display: none;">
+        <!-- Checkbox group -->
+        <div class="row mb-3">
+          <div class="col-sm-2">
+            <p>Please make your choice:</p>
+          </div>
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="airConditioner" name="airConditioner" onchange="updateAirHandlerAttributes()">
+              <label class="form-check-label" for="airConditioner">Air Conditioner</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="heater" name="heater" onchange="updateAirHandlerAttributes()">
+              <label class="form-check-label" for="heater">Heater</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="heatPump" name="heatPump" onchange="updateAirHandlerAttributes()">
+              <label class="form-check-label" for="heatPump">Heat Pump</label>
+            </div>
+          </div>
+        </div>
+        <!-- Air Conditioner attributes -->
+        <div id="airConditionerAttributes" style="display: none;">
+          <!-- EER -->
+          <div class="row mb-3">
+            <label for="eer" class="col-sm-2 col-form-label">EER</label>
+            <div class="col-sm-10">
+              <input type="number 0.1" class="form-control" id="eer" name="eer" placeholder="Enter EER">
+            </div>
+          </div>
+        </div>
+        <!-- Heater attributes -->
+        <div id="heaterAttributes" style="display: none;">
+          <!-- Energy Source H -->
+          <div class="row mb-3">
+            <label for="energySourceH" class="col-sm-2 col-form-label">Energy Source</label>
+            <div class="col-sm-10">
+              <select class="form-select" id="energySourceH" name="energySourceH">
+                <option value="" selected disabled> -- Please select energy source -- </option>
+                <option value="electric">Electric</option>
+                <option value="gas">Gas</option>
+                <option value="fuelOil">Fuel Oil</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!-- Heat Pump attributes -->
+        <div id="heatPumpAttributes" style="display: none;">
+          <!-- SEER -->
+          <div class="row mb-3">
+            <label for="seer" class="col-sm-2 col-form-label">SEER</label>
+            <div class="col-sm-10">
+              <input type="number 0.1" class="form-control" id="seer" name="seer" placeholder="Enter SEER">
+            </div>
+          </div>
+          <!-- HSPF -->
+          <div class="row mb-3">
+            <label for="hspf" class="col-sm-2 col-form-label">HSPF</label>
+            <div class="col-sm-10">
+              <input type="number 0.1" class="form-control" id="hspf" name="hspf" placeholder="Enter HSPF">
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- waterHeater -->
+      <div id="waterHeaterAttributes" style="display: none;">
+        <!-- Energy Source WH -->
+        <div class="row mb-3">
+          <label for="energySourceWH" class="col-sm-2 col-form-label">Energy Source</label>
+          <div class="col-sm-10">
+            <select class="form-select" id="energySourceWH" name="energySourceWH">
+              <option value="" selected disabled> -- Please select energy source --</option>
+              <option value="electric">Electric</option>
+              <option value="gas">Gas</option>
+              <option value="thermosolar">Thermosolar</option>
+              <option value="heatPump">Heat Pump</option>
+            </select>
+          </div>
+        </div>
+        <!-- Capacity -->
+        <div class="row mb-3">
+          <label for="capacityWH" class="col-sm-2 col-form-label">Capacity</label>
+          <div class="col-sm-10">
+            <input type="number 0.1" class="form-control" id="capacityWH" name= "capacityWH" placeholder="Enter capacity">
+          </div>
+        </div>
+        <!-- Temperature Setting -->
+        <div class="row mb-3">
+          <label for="temperatureSettingWH" class="col-sm-2 col-form-label">Temperature Setting</label>
+          <div class="col-sm-10">
+            <input type="number" class="form-control" id="temperatureSettingWH" name="temperatureSettingWH"  placeholder="Enter temperature setting">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-primary">Add Appliance</button>
+        </div>
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-primary" name="skipAppliance" value="true">Skip</button>
+        </div>
+      </div>
+
+
+    </form>
+
+  </div>
+
+</section>
+
+<%- include("partials/footer") -%>

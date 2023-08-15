@@ -1,0 +1,84 @@
+<!-- For waterheaterStatistics page  -->
+<%- include("partials/header") -%>
+
+<!-- waterheaterStatistics -->
+ <section id="waterheaterStatistics">
+
+   <div class="container-fluid text-center">
+
+     <div class="row">
+         <p class="mainMenu-text"> Report Water Heater Statistics by State: </p>
+     </div>
+
+       <!-- table 1: -->
+       <div class="row">
+           <table class="table table-bordered">
+               <thead>
+               <tr>
+                   <th>State</th>
+                   <th>Avg. Water Heater Capacity</th>
+                   <th>Avg. Water Heater BTUs</th>
+                   <th>Avg. Water Heater Temperature</th>
+                   <th>Water Heater Count w/ Temperature</th>
+                   <th>Water Heater Count w/no Temperature</th>
+                   <th>Drilldown</th>
+               </tr>
+               </thead>
+               <tbody>
+               <% waterHeaterStats.forEach(function(stats) { %>
+                   <tr>
+                       <td><%= stats.state %></td>
+                       <td><%= stats.avg_wh_capacity %></td>
+                       <td><%= stats.avg_wh_btus %></td>
+                       <td><%= stats.avg_wh_temp %></td>
+                       <td><%= stats.count_with_temp_setting %></td>
+                       <td><%= stats.count_without_temp_setting %></td>
+                       <td>
+                           <button type="button" class="btn btn-primary" onclick="showDetails('<%= stats.state %>')">Drilldown</button>
+                       </td>
+                   </tr>
+               <% }); %>
+               </tbody>
+           </table>
+       </div>
+
+       <!-- table 2: -->
+       <% energySource.forEach(function(source) { %>
+           <div class="row detailsTableContainer" id="detailsTableContainer-<%= source.state_name %>" style="display: none;">
+               <p class="tab-text-2"> <%= source.state_name %> : </p>
+               <table class="table table-bordered">
+                   <thead>
+                   <tr>
+                       <th>Energy Source</th>
+                       <th>Min. Capacity</th>
+                       <th>Avg. Capacity</th>
+                       <th>Max. Capacity</th>
+                       <th>Min. Temperature</th>
+                       <th>Avg. Temperature</th>
+                       <th>Max. Temperature</th>
+                   </tr>
+                   </thead>
+                   <tbody>
+                   <% source.energySource.forEach(function(EnergySource) { %>
+                       <tr>
+                           <td><%= EnergySource.energy_source %></td>
+                           <td><%= EnergySource.min_state_wh_capacity %></td>
+                           <td><%= EnergySource.avg_state_wh_capacity %></td>
+                           <td><%= EnergySource.max_state_wh_capacity %></td>
+                           <td><%= EnergySource.min_state_wh_temp %></td>
+                           <td><%= EnergySource.avg_state_wh_temp %></td>
+                           <td><%= EnergySource.max_statewh_temp %></td>
+                       </tr>
+                   <% }); %>
+                   </tbody>
+               </table>
+           </div>
+       <% }); %>
+
+
+
+   </div>
+
+ </section>
+
+<%- include("partials/footer") -%>

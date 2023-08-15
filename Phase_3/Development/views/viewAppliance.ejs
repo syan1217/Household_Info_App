@@ -1,0 +1,66 @@
+<!-- For view appliance page  -->
+<%- include("partials/header") -%>
+
+<!-- view appliance -->
+<section id="viewAppliance">
+
+  <div class="container-fluid text-center">
+
+    <div class="row">
+      <p class="mainMenu-text"> The List of Added Appliances: </p>
+    </div>
+
+    <!-- table -->
+    <div class="row">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Appliance Order</th>
+            <th>Type</th>
+            <th>Manufacturer Name</th>
+            <th>Model Name</th>
+          </tr>
+        </thead>
+        <tbody id="applianceTableBody">
+          <% appliances.forEach(function(appliance) { %>
+            <tr>
+              <td><%= appliance.appliance_order %></td>
+              <td><%= appliance.Type %></td>
+              <td><%= appliance.manufacturer_name %></td>
+              <td><%= appliance.model_name %></td>
+              <td>
+                <div class="deleteButtons">
+                  <form action="/deleteAppliance" method="post" class="d-inline">
+                    <!-- hidden to not show the value here! -->
+                    <input type="hidden" name="applianceOrder" value="<%= appliance.appliance_order %>">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- button -->
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <a href="/addAppliance" class="btn btn-primary" role="button">Add another appliance</a>
+          </div>
+          <div class="col-md-6">
+            <!-- <a href="/addPowerGenerator" class="btn btn-primary" role="button">Next</a> -->
+            <% if ( !disableNextButton ) { %>
+            <a href="/addPowerGenerator" class="btn btn-primary" role="button" id="nextButton">Next</a>
+            <% } %>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+  </section>
+
+  <%- include("partials/footer") -%>

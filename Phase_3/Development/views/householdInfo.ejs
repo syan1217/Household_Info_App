@@ -1,0 +1,138 @@
+<!-- For household info page  -->
+<%- include("partials/header") -%>
+
+<!-- household info form -->
+<section id="householdInfo">
+
+  <div class="container-fluid text-center">
+
+    <!-- <p class="tab-text-2"> Enter household Info: </p> -->
+    <div class="row">
+        <p class="mainMenu-text"> Please Enter household Info:</p>
+    </div>
+
+    <% if (errors != null) { %>
+      <div class="alert alert-danger">
+        <% if (errors.Email) { %>
+          <p><%= errors.Email %></p>
+        <% } %>
+        <% if (errors.postalCode) { %>
+          <p><%= errors.postalCode %></p>
+        <% } %>
+        <% if (errors.squareFootage) { %>
+          <p><%= errors.squareFootage %></p>
+        <% } %>
+        <% if (errors.householdType) { %>
+          <p><%= errors.householdType %></p>
+        <% } %>
+        <% if (errors.heating) { %>
+          <p><%= errors.heating %></p>
+        <% } %>
+        <% if (errors.cooling) { %>
+          <p><%= errors.cooling %></p>
+        <% } %>
+      </div>
+    <% } %>
+
+    <form class="householdInfo-form",action = "/householdInfo", method="post" >
+
+      <div class="row mb-2">
+        <label for="Email" class="col-sm-2 col-form-label col-form-label-md">Email Address:</label>
+        <div class="col-sm-10">
+          <input type="email" class="form-control form-control-md" id = "Email" name="Email" placeholder="" required>
+        </div>
+      </div>
+
+      <div class="row mb-2">
+        <label for="postalCode" class="col-sm-2 col-form-label col-form-label-md">Postal Code:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control form-control-md" name="postalCode" placeholder="" required>
+        </div>
+      </div>
+
+      <div class="row mb-2">
+
+        <label for="householdType" class="col-sm-2 col-form-label col-form-label-md">Household Type:</label>
+        <div class="col-sm-4">
+          <select class="form-select" name="householdType" required>
+            <option value="">Choose...</option>
+            <option>House</option>
+            <option>Apartment</option>
+            <option>Townhome</option>
+            <option>Condominium</option>
+            <option>Mobile Home</option>
+          </select>
+        </div>
+
+        <label for="squareFootage" class="col-sm-2 col-form-label col-form-label-md">Square Footage:</label>
+        <div class="col-sm-4">
+          <input type="number" class="form-control form-control-md" name="squareFootage" placeholder="" required >
+        </div>
+      </div>
+
+      <div class="row mb-2">
+        <label for="heating" class="col-sm-3 col-form-label col-form-label-md">Thermostat setting for heating:</label>
+
+        <div class="col-sm-7">
+          <input type="number" class="form-control form-control-md" name="heating" id = "heating" placeholder="">
+        </div>
+
+        <div class="btn-group col-sm-2" role="group" aria-label="Basic checkbox toggle button group">
+          <input type="checkbox" class="btn-check" id="heatingCheck" name = "heatingCheck" onchange="disableHeating()">
+          <label class="btn btn-outline-primary" for="heatingCheck">No Heating</label>
+        </div>
+      </div>
+
+      <div class="row mb-2">
+        <label for="cooling" class="col-sm-3 col-form-label col-form-label-md">Thermostat setting for cooling:</label>
+
+        <div class="col-sm-7">
+          <input type="number" class="form-control form-control-md" name="cooling" id = "cooling" placeholder="">
+        </div>
+
+        <div class="btn-group col-sm-2" role="group" aria-label="Basic checkbox toggle button group">
+          <input type="checkbox" class="btn-check" id="coolingCheck" name = "coolingCheck" onchange="disableCooling()">
+          <label class="btn btn-outline-primary" for="coolingCheck">No Cooling</label>
+        </div>
+      </div>
+
+      <div class="row justify-content-left align-items-center">
+        <label for="publicUtilities" class="col-sm-2 col-form-label col-form-label-md text-center">Public Utilities:</label>
+        <div class="col-sm-2">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="electric" name="publicUtilities" id="electric">
+            <label class="form-check-label" for="electric">
+              Electric
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="gas" name="publicUtilities" id="gas">
+            <label class="form-check-label" for="gas">
+              Gas
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="steam" name="publicUtilities" id="steam">
+            <label class="form-check-label" for="steam">
+              Steam
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="fuel-oil" name="publicUtilities" id="fuel-oil">
+            <label class="form-check-label" for="fuel-oil">
+              Fuel Oil
+            </label>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <button type="submit" class="btn btn-primary longer-button">Next</button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+
+</section>
+
+<%- include("partials/footer") -%>

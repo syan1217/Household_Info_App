@@ -1,0 +1,67 @@
+<!-- For manufacturerModel page  -->
+
+<%- include("partials/header") -%>
+
+<!-- manufacturerModel -->
+<section id="manufacturerModel">
+
+  <!-- When you need to use a function within the EJS template, it should be defined within the EJS file itself.
+  If the function is used only for client-side logic and not within the EJS template, you can place it in a separate JavaScript file. -->
+  <% function highlightMatches(text, searchstring) {
+    const regex = new RegExp(searchstring, 'gi');
+    if(text !== null){
+        return text.replace(regex, match => `<mark class="highlight">${match}</mark>`);
+    }
+  } %>
+
+  <div class="container-fluid text-center">
+
+    <div class="row">
+      <p class="mainMenu-text"> Search Manufacturers/Model: </p>
+    </div>
+
+    <form class="manufacturerModel-form",action = "/manufacturerModel", method="post" >
+
+      <div class="row mb-2">
+        <label for="searchString" class="col-sm-2 col-form-label col-form-label-md"><strong>Search:</strong></label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control form-control-md" id = "searchString" name="searchString" placeholder="">
+        </div>
+        <div class="col-sm-2">
+          <button type="submit" class="btn btn-primary longer-button">Search</button>
+        </div>
+      </div>
+    </form>
+
+    <% if (results !== null) { %>
+      <% if (results.length > 0) { %>
+        <div class="row">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Manufacturer</th>
+                <th>Model Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% results.forEach(function(search) { %>
+                <tr>
+                  <td><%- highlightMatches(search.manufacturer_name, searchstring) %></td>
+                  <td><%- highlightMatches(search.model_name, searchstring) %></td>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+          <% } else { %>
+            <div class="row">
+              <p class="mainMenu-text">Nothing is found. Please search again!</p>
+            </div>
+            <% } %>
+            <% } %>
+
+          </div>
+
+        </section>
+
+        <%- include("partials/footer") -%>

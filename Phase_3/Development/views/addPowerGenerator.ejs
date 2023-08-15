@@ -1,0 +1,65 @@
+<!-- For view appliance page  -->
+<%- include("partials/header") -%>
+
+<!-- view appliance -->
+<section id="addPowerGenerator">
+
+  <div class="container-fluid text-center">
+
+    <div class="row">
+      <p class="mainMenu-text"> Add Power Generator: </p>
+    </div>
+
+    <% if (errors != null) { %>
+          <div class="alert alert-danger">
+            <% if (errors.monthlyKwh) { %>
+              <p><%= errors.monthlyKwh %></p>
+            <% } %>
+            <% if (errors.storageKwh) { %>
+              <p><%= errors.storageKwh %></p>
+            <% } %>
+          </div>
+        <% } %>
+
+    <div class="row">
+      <form action="/addPowerGenerator" method="post">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row mb-3">
+              <label for="generatorType" class="col-sm-4 col-form-label">Generator Type</label>
+              <div class="col-sm-8">
+                <select class="form-select" id="generatorType" name="generatorType">
+                  <option value="" selected disabled>Select generator type</option>
+                  <option value="solar-electric">Solar-Electric</option>
+                  <option value="wind">Wind</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="monthlyKwh" class="col-sm-4 col-form-label">Monthly Kwh</label>
+              <div class="col-sm-8">
+                <input type="number" class="form-control" id="monthlyKwh" name="monthlyKwh" placeholder="Enter Monthly Kwh">
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="storageKwh" class="col-sm-4 col-form-label">Storage kWh</label>
+              <div class="col-sm-8">
+                <input type="number" class="form-control" id="storageKwh" name="storageKwh" placeholder="Enter Storage kWh">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 d-flex flex-column justify-content-center">
+              <% if (!offTheGrid) { %>
+              <button type="submit" class="btn btn-primary mb-3" name="skipButton" value="true">Skip</button>
+              <% } %>
+            <button type="submit" class="btn btn-primary">Add Generator</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+</section>
+
+<%- include("partials/footer") -%>

@@ -1,0 +1,72 @@
+<!-- For add appliance page  -->
+<%- include("partials/header") -%>
+
+<!-- add appliance -->
+<section id="topManufacturer">
+
+  <div class="container-fluid text-center">
+
+    <div class="row">
+      <p class="mainMenu-text"> Top 25 Popular Manufacturers: </p>
+    </div>
+
+    <% if (topManufacturers.length > 0 ) { %>
+
+    <!-- table 1: -->
+    <div class="row">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Manufacturer</th>
+            <th>Appliance Count</th>
+            <th>Drilldown</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% topManufacturers.forEach(function(manufacturer) { %>
+            <tr>
+              <td><%= manufacturer.manufacturer_name %></td>
+              <td><%= manufacturer.ApplianceCount %></td>
+              <td>
+                <button type="button" class="btn btn-primary" onclick="showDetails2('<%= manufacturer.manufacturer_name %>')">Drilldown</button>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- table 2: -->
+    <% appliances.forEach(function(appliance) { %>
+      <div class="row detailsTableContainer" id="detailsTableContainer-<%= appliance.manufacturer_name %>" style="display: none;">
+        <p class="tab-text-2"> <%= appliance.manufacturer_name %> : </p>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Appliance Type</th>
+              <th>Appliance Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% appliance.appliances.forEach(function(Appliance) { %>
+              <tr>
+                <td><%= Appliance.appliance_type %></td>
+                <td><%= Appliance.Appliance_Count %></td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    <% }); %>
+
+    <% } else { %>
+      <div class="row">
+        <p class="mainMenu-text">There is no manufacturer information in the database!</p>
+      </div>
+    <% } %>
+
+    </div>
+
+  </section>
+
+  <%- include("partials/footer") -%>

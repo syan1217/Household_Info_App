@@ -1,0 +1,134 @@
+<!-- For add appliance page  -->
+<%- include("partials/header") -%>
+
+<!-- add appliance -->
+ <section id="offTheGridHousehold">
+
+   <div class="container-fluid text-center">
+
+     <div class="row">
+         <p class="mainMenu-text"> Off-the-grid Household Dashboard: </p>
+     </div>
+
+       <% if (stateWithTheMostOffTheGrid.length > 0 && stateWithTheMostOffTheGrid[0].household_count > 0) { %>
+       <!-- table 1: -->
+       <div class="row mb-2">
+           <p class="tab-text-1"> Table 1: State with the most "off-the-grid" households </p>
+       </div>
+       <div class="row ">
+           <table class="table table-bordered">
+               <thead>
+               <tr>
+                   <th>State</th>
+                   <th>Count of "Off-the-Grid" Household </th>
+               </tr>
+               </thead>
+               <tbody>
+               <% stateWithTheMostOffTheGrid.forEach(function(state) { %>
+                   <tr>
+                       <td><%= state.state %></td>
+                       <td><%= state.household_count %></td>
+                   </tr>
+               <% }); %>
+               </tbody>
+           </table>
+       </div>
+       <div class="row">&nbsp;</div>
+       <div class="row">&nbsp;</div>
+
+       <div class="row mb-2">
+           %> <p class="tab-text-1"> The average battery storage capacity:  <%= averageBatteryStorageCapacity[0].avg_battery_storage_capacity %></p> %>
+       </div>
+       <div class="row">&nbsp;</div>
+       <div class="row">&nbsp;</div>
+
+       <!-- table 2: -->
+       <div class="row mb-2">
+           <p class="tab-text-1"> Table 2:  Percentages of power generation type for all "off-the-grid" households </p>
+       </div>
+
+       <div class="row">
+           <table class="table table-bordered">
+               <thead>
+               <tr>
+                   <th>Power Generation Types</th>
+                   <th>Percentages </th>
+               </tr>
+               </thead>
+               <tbody>
+               <% percentageOfPowerGenerationType.forEach(function(type) { %>
+                   <tr>
+                       <td><%= type.power_generation_type %></td>
+                       <td><%= type.percentage %></td>
+                   </tr>
+               <% }); %>
+               </tbody>
+           </table>
+       </div>
+       <div class="row">&nbsp;</div>
+       <div class="row">&nbsp;</div>
+
+       <!-- table 3: -->
+       <div class="row mb-2">
+           <p class="tab-text-1"> Table 3:  Average water heater gallon capacity of two type households </p>
+       </div>
+       <div class="row">
+           <table class="table table-bordered">
+               <thead>
+               <tr>
+                   <th>Household Category</th>
+                   <th>Average Water Heater Gallon Capacity </th>
+               </tr>
+               </thead>
+               <tbody>
+               <% averageCapacityWH.forEach(function(capacityWH) { %>
+                   <tr>
+                       <td><%= capacityWH.household_category %></td>
+                       <td><%= capacityWH.avg_wh_capacity %></td>
+                   </tr>
+               <% }); %>
+               </tbody>
+           </table>
+       </div>
+       <div class="row">&nbsp;</div>
+       <div class="row">&nbsp;</div>
+
+       <!-- table 4: -->
+       <div class="row mb-2">
+           <p class="tab-text-1"> Table 4:  BTUs data of different appliance types </p>
+       </div>
+
+       <div class="row">
+           <table class="table table-bordered">
+               <thead>
+               <tr>
+                   <th>Appliance Type</th>
+                   <th>Minimum BTUs </th>
+                   <th>Average BTUs </th>
+                   <th>Maxi BTUs </th>
+               </tr>
+               </thead>
+               <tbody>
+               <% BTUsData.forEach(function(BTU) { %>
+                   <tr>
+                       <td><%= BTU.appliance_type %></td>
+                       <td><%= BTU.min_btus %></td>
+                       <td><%= BTU.avg_btus %></td>
+                       <td><%= BTU.max_btus %></td>
+                   </tr>
+               <% }); %>
+               </tbody>
+           </table>
+       </div>
+
+       <% } else { %>
+           <div class="row">
+               <p class="mainMenu-text">There is no off-the-grid household!</p>
+           </div>
+       <% } %>
+
+   </div>
+
+ </section>
+
+<%- include("partials/footer") -%>

@@ -1,0 +1,65 @@
+<!-- For view appliance page  -->
+<%- include("partials/header") -%>
+
+<!-- view appliance -->
+<section id="powerGeneratorList">
+
+  <div class="container-fluid text-center">
+
+    <div class="row">
+      <p class="mainMenu-text"> The List of Added Generator: </p>
+    </div>
+
+    <!-- table -->
+    <div class="row">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Generator Order</th>
+            <th>Type</th>
+            <th>Monthly kWh</th>
+            <th>Battery kWh</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% generators.forEach(function(generator) { %>
+            <tr>
+              <td><%= generator.Num %></td>
+              <td><%= generator.Type %></td>
+              <td><%= generator.MonthlykWh %></td>
+              <td><%= generator.BatterykWh %></td>
+              <td>
+                <form action="/deleteGenerator" method="post" class="d-inline">
+                  <!-- hidden to not show the value here! -->
+                  <input type="hidden" name="generatorOrder" value="<%= generator.Num %>">
+                  <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+              </td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <a href="/addPowerGenerator" class="btn btn-primary" role="button">Add another generator</a>
+          </div>
+
+          <div class="col-md-6">
+            <% if ( !disableFinishButton ) { %>
+              <a href="/wrappingUp" class="btn btn-primary" role="button">Finish</a>
+              <% } %>
+          </div>
+
+          </div>
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+    <%- include("partials/footer") -%>

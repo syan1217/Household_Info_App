@@ -1,0 +1,62 @@
+<!-- For add appliance page  -->
+<%- include("partials/header") -%>
+
+<!-- add appliance -->
+ <section id="heatingCooling">
+
+   <div class="container-fluid text-center">
+
+     <div class="row">
+         <p class="mainMenu-text"> Report Heating/Cooling Method: </p>
+     </div>
+       <% if (heatingCooling.length > 0 ) { %>
+
+    <div class="row">
+           <table class="table table-bordered">
+               <thead>
+               <tr>
+                   <th>Household type</th>
+                   <th>Air conditioner count</th>
+                   <th>Avg. Air Conditioner BTUs</th>
+                   <th>Avg. EER</th>
+                   <th>Heater Count</th>
+                   <th>Ave. Heater BTUs</th>
+                   <th>Most Common Energy Source</th>
+                   <th>Heat Pump Count</th>
+                   <th>Avg. Heat Pump BTUs</th>
+                   <th>Avg. SEER</th>
+                   <th>Avg. HSPF</th>
+               </tr>
+               </thead>
+               <tbody>
+               <% heatingCooling.forEach(function(heatingCoolingmethod) { %>
+                   <tr>
+                       <td><%= heatingCoolingmethod.household_type %></td>
+                       <td><%= heatingCoolingmethod.ac_count %></td>
+                       <td><%= heatingCoolingmethod.ac_avg_btu_rating %></td>
+                       <td><%= heatingCoolingmethod.ac_avg_eer %></td>
+                       <td><%= heatingCoolingmethod.heater_count %></td>
+                       <td><%= heatingCoolingmethod.heater_avg_btu_rating %></td>
+                       <td><%= heatingCoolingmethod.most_common_energy_source %></td>
+                       <td><%= heatingCoolingmethod.heatpump_count %></td>
+                       <td><%= heatingCoolingmethod.heatpump_avg_btu_rating %></td>
+                       <td><%= heatingCoolingmethod.avg_seer %></td>
+                 <td><%= heatingCoolingmethod.avg_hspf %></td>
+                   </tr>
+               <% }); %>
+               </tbody>
+           </table>
+       </div>
+
+       <% } else { %>
+           <div class="row">
+               <p class="mainMenu-text">There is no Heating/Cooling data in the database!</p>
+           </div>
+       <% } %>
+
+
+   </div>
+
+ </section>
+
+<%- include("partials/footer") -%>
